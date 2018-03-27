@@ -25,7 +25,7 @@ io.on('connection', socket => {
 
   socket.on("testMessage", msg => {
     logmaker.log(msg);
-    io.sockets.emit("testMessage", msg)
+    socket.broadcast.emit("testMessage", msg)
   })
   socket.on("refresh", dat => {
     socket.broadcast.emit("update", dat)
@@ -33,6 +33,17 @@ io.on('connection', socket => {
   socket.on("p2", dat => {
     socket.broadcast.emit("p2", dat)
   })
+
+  //gameCalls
+
+  socket.on("damage", amnt => {
+    socket.broadcast.emit("damage", amnt)
+  })
+
+  socket.on("loss", () => {
+    socket.broadcast.emit("win", null)
+  })
+
 });
 
 module.exports = io;

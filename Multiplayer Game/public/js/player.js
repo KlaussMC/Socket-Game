@@ -12,9 +12,7 @@
     this.projectiles = []
 
     this.moving = false;
-
   }
-
   show() {
     noStroke();
     fill(255);
@@ -41,7 +39,7 @@
           this.dir = -1;
         } else if (!keyIsDown(87) && !keyIsDown(83))
           this.dir = 0;
-        
+
         if (keyIsDown(68))
           this.angle -= 0.05;
         if (keyIsDown(65))
@@ -81,6 +79,8 @@
         }
 
         this.pos.add(this.vel)
+
+        this.sendStats()
       }
 
       this.pos.x = constrain(this.pos.x, 0 - width / 2, width / 2);
@@ -109,28 +109,34 @@
       console.log("He dedd")
   }
   setStats(data) {
-    this.pos = data.pos;
-    this.projectiles = data.projectiles;
+    this.pos = createVector(data.pos.x, data.pos.y);
     this.health = data.health;
+    this.projectiles=this.showProjectiles(data.projectiles)
   }
   sendStats() {
-    let data = {
-      pos: this.pos,
-      projectiles: this.projectiles,
-      health: this.health
+    update({name: this.name, health: this.health, pos: {x: this.pos.x, y: this.pos.y}, projectiles: this.getProjectiles()})
+  }
+  getProjectiles() {
+    let bullets = [];
+    for (let i in this.projectiles) {
+      bullets.push({x: this.projectiles[i].pos.x, y:this.projectiles[i].pos.y, angle: this.projectiles[i].angle })
     }
-    update(data)
+    return bullets
+  }
+  showProjectiles(bullets) {
+    this.projectiles = [];
+    for (let i in bullets) {
+      this.projectiles.push(new bulletImage(bullets[i].x, bullets[i].y, bullets[i].angle))
+    }
   }
 }
 class projectile {
-  constructor(x, y, angle, damage, owner) {
+  constructor(x, y, angle, damage, owner, id) {
     this.pos = createVector(x, y);
     this.angle = angle;
     this.angle += random(-0.01, 0.01);
     this.damage = damage;
     this.owner = owner;
-
-    //console.log("Pew Pew");
   }
   show() {
     push();
@@ -146,9 +152,38 @@ class projectile {
     this.pos.y += 25 * cos(this.angle)
 
     if (this.owner == 1)
-      if (p2) if (dist(this.pos.x, this.pos.y, p2.pos.x, p2.pos.y) < 10 + p2.health / 2) p2.damage(this.damage)
+      if (p2) if (dist(this.pos.x, this.pos.y, p2.pos.x, p2.pos.y) < 10 + p2.health / 2) {
+        p2.damage(this.damage)
+        socket.emit("damage", this.damage)
+      }
     else if (this.owner == 2)
-      if (dist(this.pos.x, this.pos.y, p1.pos.x, p1.pos.y) < 10 + p1.health / 2) p1.damage(this.damage)
-    
+      if (dist(this.pos.x, this.pos.y, p1.pos.x, p1.pos.y) < 10 + p1.health / 2) {
+        p1.damage(this.damage)
+        socket.emit("damage", this.damage)
+      }
   }
+}
+
+class bulletImage {
+  constructor (x, y, angle) {
+    this.pos = createVector(x, y);
+    this.angle = angle;
+  }
+  show() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    rotate(PI - this.angle);
+    imageMode(CENTER);
+    image(bullet, 0, 0, 10, 10);
+    pop();
+  }
+}
+
+function generateId() {
+  let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  let id = "";
+  for (let i = 0; i < Math.floor(Math.random()*15) + 5; i++) {
+    id += str[Math.floor(Math.random() * str.length) - 1]
+  }
+  return id
 }
