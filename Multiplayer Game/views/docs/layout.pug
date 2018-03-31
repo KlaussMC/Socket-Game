@@ -3,7 +3,23 @@ html
   head
     title= title
     link(rel='stylesheet', href='/css/docs.css')
+    link(rel='stylesheet', href='/css/global.css')
+    meta(charset="utf-8")
+    meta(name="keywords", content="2d, top-down-shooter, arcade, multiplayer, websockets, assignment")
+    meta(name="author", content="Jacob Schneider")
 
   body
-    block content
-    
+    .wrapper
+      header
+        h1 Docs
+        
+        nav
+          a(href="/") Home
+          
+          form(action="/docs/search/", method="get")
+            input(type="search", name="search", placeholder="Search the documentation")
+            button(type="submit") Search
+      article.content
+        block content
+      include ../discover.pug
+      include ../footer.pug

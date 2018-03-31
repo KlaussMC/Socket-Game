@@ -5,15 +5,15 @@ block content
   
   section.wrapper
     header
-      b.indent Duel
+      b.indent= title
       nav
         a Discover More by Jacob
         a Leave notes
     .info
-      h1 Duel - A project by Jacob Schneider
+      h1 #{title}- A project by Jacob Schneider
       
       article
-        p Duel is designed to be a 2 player game based on a project by 
+        p #{title}is designed to be a 2 player game based on a project by 
           a() Jordan Jantschulev
           //- link jordan's game
           |.
@@ -112,44 +112,7 @@ block content
               p Throughout the project's development, I plan to continue improving the functionality of the game, as well as the support for 
                 | lower-quality browsers and mobile devices. 
         
-        button(onclick="window.location.href='/game'").gotoGame Go to game
+        button(onclick="window.location.href='/game'").gotoGame Continue to #{title}
             
-    .discover
-      ul
-        b More Projects
-        
-    .footer
-      .credits
-        h3 Credits:
-        div
-          b Lead Developer: 
-          br 
-          | Jacob Schneider
-        div
-          b Idea Contribution: 
-          br
-          br
-          ul
-            li Casurina West
-            li Avalon Gonzales
-            li Finnian Wolfe-McCoulugh
-            li Kia McHugh
-            li Jacob Schneider
-            li Jordan Jantschulev
-            li Sophie Paskin
-        br
-        div
-          b Other Credits
-          br
-          br
-          ul
-            li Atom.io
-            li Chrome
-            li Electron.js
-            li Express.js
-            li GitHub
-            li Node.js
-            li No-ip.com
-            li Pug.js
-            li p5.js
-            li Socket.io
+    include ./discover.pug
+    include ./footer.pug

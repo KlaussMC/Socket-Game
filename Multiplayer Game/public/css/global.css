@@ -1,0 +1,41 @@
+ul {
+  list-style-type: none;
+}
+article > p {
+  margin-bottom: 4pt;
+}
+article {
+  text-align: justify;
+}
+.discover {
+  grid-area: b;
+  margin: 20px;
+  background: #9af;
+  padding: 20px;
+  color: #eee;
+}
+.footer {
+  padding: 20px;
+  grid-area: d;
+  background: #333;
+  color: #eee;
+  display: grid;
+  grid-areas: "a b";
+  font-family: "Segoe UI";
+  font-size: 110%;
+}
+.footer > .credits {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+.footer > .credits > div {
+  text-align: center;
+  width: 45%;
+  display: block;
+  float: left;
+}
+
+.indent {
+  padding-left: 20px;
+}

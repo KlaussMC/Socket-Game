@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1 The player Command Menu - part 2
+  br
+  h3 The Player objects
+  br
+  p The Players are stored in variables called 
+    .inlineCode p1 
+    | and 
+    .inlineCode p2
+    | . Every client assumes it is player 1, and every player will be placed in the p1 variable. 
+    br
+    | The p2 variable will be populated with an instance of the player class which has its controls disabled.
+    | It will only move once it recieves new locations from the other client.
+    | The p2 is not allowed to fire bullets, instead, the bullets are simulated by a bullet simulator class. This is for performance reasons.
+    br
+    | The player class has 3 main variables: 
+    .inlineCode pos
+    | , 
+    .inlineCode projectiles 
+    | and 
+    .inlineCode health
+    | . If the variables are to be modified, they must be accessed via the correct player calls.
+    br
+    | For example:
+    .code
+      .orange p1
+      .red .
+      .orange health
+      .red =
+      .green 100
+      .red ;
+      
+    | A variable change to 
+    .inlineCode p2 
+    | will be affectless, because the p2 recieves status updates only from the other client, it does not sync these statuses, to change the variables so that
+    | they will have a permanent effect, a socket event must be broadcasted, where the other client listenes for such events and responds.
+    br
+    br
+    b.note Note: 
+    | A client that installs a mod script will not install it on the other client. To install the mod on the other client, emit a socket event. 
+    | More on that in following chapters.
+    br
+    
+    .nav
+      a(href="/docs/player-command-menu") Previous
+      a(href="/game") Play #{title}
+      a(href="/docs/player-command-menu3") Next

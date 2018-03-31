@@ -1,7 +1,119 @@
 * {
   font-family: 'Segoe UI', 'Arial';
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 body {
   background: #333;
   color: #eee;
+}
+.wrapper {
+  display: grid;
+  grid-template-areas: 'a a' 'b c' 'd d';
+  grid-template-columns: 1fr 3.5fr;
+  grid-template-rows: auto minmax(calc(100vh - 50px), auto) auto;
+  color: rgb()
+}
+
+header {
+  grid-area: a;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 50px;
+  background: dodgerblue;
+  line-height: 50px;
+}
+header h1 {
+  padding-left: 50px;
+}
+header nav {
+  grid-column: 2;
+  display: flex;
+  padding-right: 20px;
+}
+header nav > * {
+  text-align: center;
+  display: block;
+  float: left;
+
+  width: 50%;
+}
+header nav a {
+  color: #333;
+}
+header nav form * {
+  border: none;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 3px;
+  background: #fff;
+}
+header nav form input[type='search'] {
+  width: 80%;
+}
+header nav form button {
+  width: 20%;
+}
+
+a {
+  color: dodgerblue;
+  text-decoration: none;
+}
+.content {
+  grid-area: c;
+  padding: 20px;
+  margin: 20px;
+  background: #101010;
+  color: #eee;
+}
+
+footer {
+  background: #eee !important;
+  color: #333 !important;
+}
+
+.inlineCode {
+  color: yellow;
+  display: inline;
+  font-family: "Courier New";
+}
+.code::before {
+  content: '> ';
+}
+.code {
+  background: #333;
+  display: block;
+  width: 100%;
+  margin: 2px;
+  padding: 2px;
+  color: yellow;
+  font-family: "Courier New";
+}
+.code > * {
+  font-family: "Courier New";
+  display: inline;
+  font-size: 90%;
+  line-height: 100%;
+
+}
+.green { color: lime; }
+.red { color: #a00; }
+.blue { color: deepskyblue; }
+.orange { color: darkorange; }
+
+article .nav {
+  width: 100%;
+  display: flex;
+  padding: 100px 100px 0 100px;
+}
+article .nav > * {
+  width: 100%;
+  text-align: center;
+  margin: 2px;
+  padding: 10px;
+  background: #555;
+  border-radius: 5px;
 }

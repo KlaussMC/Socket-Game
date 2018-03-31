@@ -66,42 +66,6 @@ article {
   width: 75%;
   text-align: justify;
 }
-article > p {
-  margin-bottom: 4pt;
-}
-.discover {
-  grid-area: b;
-  margin: 20px;
-  background: #9af;
-  padding: 20px;
-  color: #eee;
-}
-
-.footer {
-  padding: 20px;
-  grid-area: d;
-  background: #333;
-  color: #eee;
-  display: grid;
-  grid-areas: "a b";
-  font-family: "Segoe UI";
-  font-size: 110%;
-}
-.footer > .credits {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-}
-.footer > .credits > div {
-  text-align: center;
-  width: 45%;
-  display: block;
-  float: left;
-}
-
-.indent {
-  padding-left: 20px;
-}
 
 article img{
   position: relative;

@@ -4,7 +4,7 @@ var router = express.Router();
 
 var socket = require("./socket")
 
-let title = "Jacob's Multiplayer Game"
+let title = "Duel.io"
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -17,10 +17,13 @@ router.get('/game', function (req, res) {
 //docs
 
 router.get('/docs', function (req, res) {
-  res.render('docs/main')
+  res.render('docs/main', { title })
 })
 router.get('/docs/player-command-menu', function (req, res) {
-  res.render('docs/main')
+  res.render('docs/playerCommandMenu', { title })
+})
+router.get('/docs/player-command-menu2', function (req, res) {
+  res.render('docs/playerCommandMenu2', { title })
 })
 
 module.exports = router;
