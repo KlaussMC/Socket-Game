@@ -7,6 +7,13 @@ logmaker.enable()
 io.socketPort = 3000
 app.listen(io.socketPort);
 
+let ws = {
+  w: 128000,
+  h: 72000
+}
+
+let connectedPlayers = []
+
 function handler (req, res) {
   fs.readFile(__dirname + '/index.html',
   function (err, data) {
@@ -22,6 +29,12 @@ function handler (req, res) {
 
 io.on('connection', socket => {
   logmaker.log(socket.handshake.adress || "Join");
+  connectedPlayers.push(socket)
+
+  if (connectedPlayers > 1) {
+    socket[0].disconnect()
+    console.log("Disconnection")
+  }
 
   socket.on("testMessage", msg => {
     logmaker.log(msg);
@@ -33,7 +46,12 @@ io.on('connection', socket => {
   socket.on("p2", dat => {
     socket.broadcast.emit("p2", dat)
   })
-
+  socket.on("windowSize", data => {
+    ws.w = Math.min(ws.w, data.w)
+    ws.h = Math.min(ws.h, data.h)
+    io.sockets.emit("windowSize",ws)
+    logmaker.log(ws)
+  })
   //gameCalls
 
   socket.on("damage", amnt => {

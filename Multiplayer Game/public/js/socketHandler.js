@@ -12,6 +12,14 @@ socket.on("update", data => {
     p2.setStats(data)
   }
 })
+socket.on("windowSize", data => {
+  resizeCanvas(data.w, data.h)
+  minWidth = data.w
+  minHeight = data.h
+
+  mapWidth = minWidth * 5
+  mapHeight = minHeight * 5
+})
 
 function update(dat) {
   socket.emit("refresh", dat);
@@ -24,5 +32,5 @@ socket.on("damage", amnt => {
 })
 
 socket.on("win", () => {
-  
+  gameOver = true
 })

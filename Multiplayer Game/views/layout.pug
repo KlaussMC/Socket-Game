@@ -8,6 +8,8 @@ html
     script(src="lib/p5.js")
 
     script socket = io.connect(`${window.location.hostname}:` + "#{port}")
+    
+    script window.addEventListener("keydown", e => {e.keyCode == 116?window.location.reload():null})
 
   body
     block content

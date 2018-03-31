@@ -7,8 +7,66 @@ body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 
     overflow: hidden;
+
+    background: #000;
+    vertical-align: middle;
 }
 
 a {
-    color: #00B7FF;
+    color: dodgerblue;
+}
+canvas {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 1;
+}
+
+#stats {
+  text-align: right;
+  width: 100vw;
+  color: #eee;
+  display: block;
+  position: fixed;
+  z-index: 2;
+}
+
+#stats #whoWon {
+  position: absolute;
+  font-size: 25pt;
+  width: 100vw;
+  text-allign: center;
+  color: #eee;
+}
+.prompt {
+  width: 400px;
+  height: 200px;
+  display: none;
+  background: #fff;
+  border-radius: 15px;
+  border: 2px solid cornflowerblue;
+  text-align: center;
+  z-index: 4;
+  position: fixed;
+  left: calc(50vw - 200px);
+  top: calc(50vh - 100px);
+  outline: none;
+}
+.prompt input {
+  width: 90%;
+  padding: 2.5%;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid cornflowerblue;
+}
+.prompt button {
+  width: 45%;
+  padding: 2.5%;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid cornflowerblue;
+  postion: relative;
+  top: 200px;
 }

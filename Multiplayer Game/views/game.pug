@@ -1,8 +1,26 @@
 ﻿extends layout
 
 block content
+  script(src="/js/cam.js")
+  script(src="/js/base.js")
   script(src="/js/player.js")
   script(src="/js/index.js")
+  
+  script(src="/js/minimap.js")
 
   script(src="/js/socketHandler.js")
   
+  div#stats
+    span#health
+
+    #whoWon
+
+  div.prompt
+    .prompt-header null
+    input(type="text").prompt-value
+    
+    button(onclick="ok()") ok
+    button(onclick="hide()") cancel
+    
+    script function hide() { document.querySelector(".prompt").style.display = "none" }
+    script function ok() { window.sessionStorage.name=document.querySelector('.prompt-value').value; hide() }

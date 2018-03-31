@@ -9,7 +9,7 @@
     this.dir = 0
     this.health = 100
 
-    this.projectiles = []
+    this.projectiles = [null]
 
     this.moving = false;
   }
@@ -17,18 +17,27 @@
     noStroke();
     fill(255);
 
-    for (let i in this.projectiles) { this.projectiles[i].show() }
+    for (let i in this.projectiles) { if(this.projectiles[i]){this.projectiles[i].show()} }
 
     push();
     translate(this.pos.x, this.pos.y);
     rotate(PI - this.angle);
     imageMode(CENTER);
-    if (this.health != 0)
-      image(pchar, 0, 0, this.health / 2, this.health / 2);
+    textAlign(CENTER)
+    if (this.useControls) {
+      if (this.health != 0)
+        image(pchar, 0, 0, this.health / 2, this.health / 2);
+    } else {
+      if (this.health != 0)
+        image(p2char, 0, 0, this.health / 2, this.health / 2);
+    }
     pop();
+    textSize(15);
+    noStroke();
+    fill(255);
+    text(this.name, this.pos.x, this.pos.y-25);
   }
   update() {
-
     this.vel = createVector(0, 0)
 
     if (this.useControls) {
@@ -77,30 +86,28 @@
           if (keyIsDown(39))
             this.angle -= 0.05
         }
-
         this.pos.add(this.vel)
-
         this.sendStats()
       }
 
-      this.pos.x = constrain(this.pos.x, 0 - width / 2, width / 2);
-      this.pos.y = constrain(this.pos.y, 0 - height / 2, height / 2);
+      this.pos.x = constrain(this.pos.x, 0-mapWidth/2, mapWidth/2);
+      this.pos.y = constrain(this.pos.y, 0-mapHeight/2, mapHeight/2);
 
       if (keyIsDown(32))
         this.shoot()
 
-      for (let i in this.projectiles) {
-        this.projectiles[i].update()
-        let a = this.projectiles[i].pos.x
-        let b = this.projectiles[i].pos.y
-
-        if ((a <= 0 - width / 2 || a >= width / 2) || (b <= (0 - height / 2) - height || b >= height / 2))
-          this.projectiles.splice(i, 1)
+      for (let i = this.projectiles.length; i > 0; i--) {
+        let p = this.projectiles[i];
+        if (p) {
+          p.update();
+          if (p.pos.x <= 0-mapWidth/2 || p.pos.x >= mapWidth/2 || p.pos.y <= 0-mapHeight/2 || p.pos.y >= mapHeight/2)
+            this.projectiles.splice(i, 1)
+        }
       }
     }
   }
   shoot() {
-    if (frameCount % 10 == 0) this.projectiles.push(new projectile(this.pos.x, this.pos.y, this.angle, 10, this.name==window.localStorage.name?1:2));
+    if (frameCount % 10 == 0) this.projectiles.push(new projectile(this.pos.x, this.pos.y, this.angle, 10, this.projectiles.length));
   }
   damage(amnt) {
     this.health -= amnt;
@@ -108,17 +115,21 @@
     if (this.health == 0)
       console.log("He dedd")
   }
+  removeBullet(index) {
+    this.projectiles.splice(index, 1)
+  }
   setStats(data) {
     this.pos = createVector(data.pos.x, data.pos.y);
     this.health = data.health;
     this.projectiles=this.showProjectiles(data.projectiles)
+    this.angle = data.angle
   }
   sendStats() {
-    update({name: this.name, health: this.health, pos: {x: this.pos.x, y: this.pos.y}, projectiles: this.getProjectiles()})
+    update({name: this.name, health: this.health, pos: {x: this.pos.x, y: this.pos.y}, projectiles: this.getProjectiles(), angle: this.angle})
   }
   getProjectiles() {
     let bullets = [];
-    for (let i in this.projectiles) {
+    for (let i = 1; i < this.projectiles.length; i++) {
       bullets.push({x: this.projectiles[i].pos.x, y:this.projectiles[i].pos.y, angle: this.projectiles[i].angle })
     }
     return bullets
@@ -128,15 +139,16 @@
     for (let i in bullets) {
       this.projectiles.push(new bulletImage(bullets[i].x, bullets[i].y, bullets[i].angle))
     }
+    return this.projectiles;
   }
 }
 class projectile {
-  constructor(x, y, angle, damage, owner, id) {
+  constructor(x, y, angle, damage, index) {
     this.pos = createVector(x, y);
     this.angle = angle;
-    this.angle += random(-0.01, 0.01);
+    // this.angle += random(-0.01, 0.01);
     this.damage = damage;
-    this.owner = owner;
+    this.index = index;
   }
   show() {
     push();
@@ -151,16 +163,10 @@ class projectile {
     this.pos.x += 25 * sin(this.angle)
     this.pos.y += 25 * cos(this.angle)
 
-    if (this.owner == 1)
-      if (p2) if (dist(this.pos.x, this.pos.y, p2.pos.x, p2.pos.y) < 10 + p2.health / 2) {
-        p2.damage(this.damage)
-        socket.emit("damage", this.damage)
-      }
-    else if (this.owner == 2)
-      if (dist(this.pos.x, this.pos.y, p1.pos.x, p1.pos.y) < 10 + p1.health / 2) {
-        p1.damage(this.damage)
-        socket.emit("damage", this.damage)
-      }
+    if (dist(this.pos.x, this.pos.y, p2.pos.x, p2.pos.y) < 10 + p2.health / 2) {
+      socket.emit("damage", this.damage)
+      p1.removeBullet(this.index);
+    }
   }
 }
 
