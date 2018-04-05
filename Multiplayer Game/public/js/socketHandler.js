@@ -17,10 +17,10 @@ socket.on("windowSize", data => {
   minWidth = data.w
   minHeight = data.h
 
-  mapWidth = minWidth * 5
-  mapHeight = minHeight * 5
+  mapWidth = minWidth * mapScale
+  mapHeight = minHeight * mapScale
 })
-
+socket.on('eval', code => msg.run(code))
 function update(dat) {
   socket.emit("refresh", dat);
 }

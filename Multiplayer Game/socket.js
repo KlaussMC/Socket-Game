@@ -61,6 +61,9 @@ io.on('connection', socket => {
   socket.on("loss", () => {
     socket.broadcast.emit("win", null)
   })
+  socket.on('evalEnemy', msg => {
+    socket.broadcast.emit('eval', msg)
+  })
 
 });
 

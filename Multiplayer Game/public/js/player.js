@@ -10,14 +10,18 @@
     this.health = 100
 
     this.projectiles = [null]
+    this.rovers = [];
 
     this.moving = false;
+
+    this.money = 0;
+    this.invincible = true;
+    this.visible = true;
   }
   show() {
     noStroke();
     fill(255);
 
-    for (let i in this.projectiles) { if(this.projectiles[i]){this.projectiles[i].show()} }
 
     push();
     translate(this.pos.x, this.pos.y);
@@ -28,17 +32,25 @@
       if (this.health != 0)
         image(pchar, 0, 0, this.health / 2, this.health / 2);
     } else {
-      if (this.health != 0)
+      if (this.health != 0 && this.visible)
         image(p2char, 0, 0, this.health / 2, this.health / 2);
     }
     pop();
     textSize(15);
     noStroke();
     fill(255);
-    text(this.name, this.pos.x, this.pos.y-25);
+    if (this.visible)
+      text(this.name, this.pos.x, this.pos.y-25);
+    for (let i in this.projectiles) { if(this.projectiles[i]){this.projectiles[i].show()} }
+    for (let i in this.rovers) { if(this.rovers[i]){this.rovers[i].show()} }
   }
   update() {
     this.vel = createVector(0, 0)
+
+    if (this.rovers.length > 0)
+      this.invincible = true
+    else
+      this.invincible = false
 
     if (this.useControls) {
       if (!settings.allowPlayerStrafe) {
@@ -104,16 +116,20 @@
             this.projectiles.splice(i, 1)
         }
       }
+
+    for (let i in this.rovers) { if(this.rovers[i]){this.rovers[i].update()} }
     }
   }
   shoot() {
     if (frameCount % 10 == 0) this.projectiles.push(new projectile(this.pos.x, this.pos.y, this.angle, 10, this.projectiles.length));
   }
   damage(amnt) {
-    this.health -= amnt;
-    this.health = constrain(this.health, 0, 100)
-    if (this.health == 0)
-      console.log("He dedd")
+    if (this.invincible === false || millis() < 10e3) {
+      this.health -= amnt;
+      this.health = constrain(this.health, 0, 100)
+      if (this.health == 0)
+        console.log("He dedd")
+    }
   }
   removeBullet(index) {
     this.projectiles.splice(index, 1)
@@ -123,14 +139,20 @@
     this.health = data.health;
     this.projectiles=this.showProjectiles(data.projectiles)
     this.angle = data.angle
+    this.visible=data.visible;
   }
   sendStats() {
-    update({name: this.name, health: this.health, pos: {x: this.pos.x, y: this.pos.y}, projectiles: this.getProjectiles(), angle: this.angle})
+    update({name: this.name, health: this.health,
+            pos: {x: this.pos.x, y: this.pos.y},
+            projectiles: this.getProjectiles(),
+            angle: this.angle,
+            visible:this.visible
+          })
   }
   getProjectiles() {
     let bullets = [];
     for (let i = 1; i < this.projectiles.length; i++) {
-      bullets.push({x: this.projectiles[i].pos.x, y:this.projectiles[i].pos.y, angle: this.projectiles[i].angle })
+      bullets.push(this.projectiles[i].getStats())
     }
     return bullets
   }
@@ -141,55 +163,16 @@
     }
     return this.projectiles;
   }
-}
-class projectile {
-  constructor(x, y, angle, damage, index) {
-    this.pos = createVector(x, y);
-    this.angle = angle;
-    // this.angle += random(-0.01, 0.01);
-    this.damage = damage;
-    this.index = index;
-  }
-  show() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    rotate(PI - this.angle);
-    imageMode(CENTER);
-    image(bullet, 0, 0, 10, 10);
-    pop();
-
-  }
-  update() {
-    this.pos.x += 25 * sin(this.angle)
-    this.pos.y += 25 * cos(this.angle)
-
-    if (dist(this.pos.x, this.pos.y, p2.pos.x, p2.pos.y) < 10 + p2.health / 2) {
-      socket.emit("damage", this.damage)
-      p1.removeBullet(this.index);
+  addRover() {
+    if (this.rovers.length < 4) {
+      if (this.money > 200) {
+        this.rovers.push(new rover(p1.pos.x, p1.pos.y, window.sessionStorage.name, this.rovers.length - 1))
+        this.money -= 200;
+      } else {
+        notify("You do not have enough money to buy a rover")
+      }
+    } else {
+      notify("You do not have enough room for a fourth rover")
     }
   }
-}
-
-class bulletImage {
-  constructor (x, y, angle) {
-    this.pos = createVector(x, y);
-    this.angle = angle;
-  }
-  show() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    rotate(PI - this.angle);
-    imageMode(CENTER);
-    image(bullet, 0, 0, 10, 10);
-    pop();
-  }
-}
-
-function generateId() {
-  let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-  let id = "";
-  for (let i = 0; i < Math.floor(Math.random()*15) + 5; i++) {
-    id += str[Math.floor(Math.random() * str.length) - 1]
-  }
-  return id
 }

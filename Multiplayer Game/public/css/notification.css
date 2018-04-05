@@ -1,0 +1,27 @@
+.notification {
+  box-sizing: border-box;
+  width: 80vw;
+  padding: 20px;
+  top: 20px;
+  background: #a00;
+  color: #eee;
+  transition-duration: 0.25s;
+  display: block;
+  position: relative;
+  left: 10vw;
+  display: flex;
+  flex-grow: 0 50px;
+}
+.notification > .closeBtn {
+  float:right;
+  height: 100%;
+  background: transparent;
+  border: none;
+  width: 19%;
+}
+.notification > .value {
+  /* padding: 10px; */
+  color: #eee;
+  float: left;
+  width: 80%;
+}

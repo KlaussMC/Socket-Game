@@ -16,9 +16,10 @@ html
         nav
           a(href="/") Home
           
-          form(action="/docs/search/", method="get")
+          form(action="search", method="get")
             input(type="search", name="search", placeholder="Search the documentation")
             button(type="submit") Search
+						
       article.content
         block content
       include ../discover.pug
