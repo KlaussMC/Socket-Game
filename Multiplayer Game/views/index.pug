@@ -2,7 +2,7 @@
 
 block content
   link(rel="stylesheet", href="/css/index.css")
-  
+
   section.wrapper
     header
       b.indent= title
@@ -11,16 +11,16 @@ block content
         a Leave notes
     .info
       h1 #{title}- A project by Jacob Schneider
-      
+
       article
-        p #{title} is designed to be a 2 player game based on a project by 
+        p #{title} is designed to be a 2 player game based on a project by
           a() Jordan Jantschulev
           //- link jordan's game
           |.
-        p 
-          b.indent Disclaimer: 
-          | This game is in its early stage of development and will therefore contain bugs that have not been adressed yet. 
-          | If you wish to contribute to this project, please file an issue on 
+        p
+          b.indent Disclaimer:
+          | This game is in its early stage of development and will therefore contain bugs that have not been adressed yet.
+          | If you wish to contribute to this project, please file an issue on
           a(href="https://github.com/KlaussMC/Socket-Game/issues") GitHub
           |. Thankyou for any contribution.
         br
@@ -28,39 +28,39 @@ block content
         br
         h3 Controls:
         .indent
-          p The game's controls are very streight-forward, however, are also toggleable through the 
+          p The game's controls are very streight-forward, however, are also toggleable through the
             a(href="/docs/player-command-menu")
               span player-command menu
             br
             br
             h4 The Default Control-Sceme:
             .indent
-              p To use the default control sceme, the standart keys are used for movement. 
-               b "w", "a", "s", "d" 
+              p To use the default control sceme, the standart keys are used for movement.
+               b "w", "a", "s", "d"
                | keys are used to move the player. When combined, they will rotate the player accordingly.
                | For example "w" and "a" key will point the player north-east
             br
             h4 The Altername Control-Sceme:
             .indent
-              p The altername control sceme (Tank-controls) will move the player the way that a car moves, the 
-                b "a" and "d" 
-                | keys rotate the player, while the keys 
-                b "w" and "s" 
+              p The altername control sceme (Tank-controls) will move the player the way that a car moves, the
+                b "a" and "d"
+                | keys rotate the player, while the keys
+                b "w" and "s"
                 | move the player backwards and forwards, respectively.
             br
             h4 Both Scemes:
             .indent
-              p For both control scemes, the space-key will fire. Keys such as the 
-                b "ctrl" key 
-                | on windows, or the 
-                b "CMD" key 
+              p For both control scemes, the space-key will fire. Keys such as the
+                b "ctrl" key
+                | on windows, or the
+                b "CMD" key
                 | on Mac, will fire a more powerful shot, however, these can only be used once every 30 seconds.
                 br
-                | The 
-                b shift 
+                | The
+                b shift
                 | key uses the sprint ability, where the player can move faster than bullets for 10 seconds.
                 | The tab key will toggle the Player-command menu, from where, a player can talk to the opponent.
-                
+
         // Main Level
         br
         h2 Questions from the task sheet:
@@ -68,27 +68,27 @@ block content
           br
           ol
             li
-              h3 Statement of intent: 
+              h3 Statement of intent:
               h4 What is your proposed project? What do you plan on making and why?
               br
-              p The project is a multiplayer game, written in JavaScript. 
+              p The project is a multiplayer game, written in JavaScript.
                 | The idea was to make a game which would allow two players to battle one another.
-                | It was originally based on the idea of a game called 
-                a(href='https://play.google.com/store/apps/details?id=com.Seabaa.Dual&hl=en') Dual 
+                | It was originally based on the idea of a game called
+                a(href='https://play.google.com/store/apps/details?id=com.Seabaa.Dual&hl=en') Dual
                 | where the location of the other player is unknown and makes the game more interesting.
                 | However, other ideas where contributed that lead to the desicion of basing it on other titles.
               p The idea was used as it would require the use of websockets, a topic still relatively new to me.
                 | It would encourage the use of speed-aware programming, also a subject that has been more or less ignored by me.
             br
             li
-              h3 Criteria for success: 
+              h3 Criteria for success:
               h4 What will determine if you project is a success? What will make it stand out from existing projects of the same type?
               br
-              p The answer to this question might seem relatively simple, and it is. By saying this, 
-                | I am admitting that this type of game has already been created numerous times. 
-                | This is what lead to the creation and development of the documentation of it. I believe that a large number of games and programs 
+              p The answer to this question might seem relatively simple, and it is. By saying this,
+                | I am admitting that this type of game has already been created numerous times.
+                | This is what lead to the creation and development of the documentation of it. I believe that a large number of games and programs
                 | are not very well documented.
-                | The simple answer to the question is the documentation. I also plan on making an interface for connecting mod scripts. 
+                | The simple answer to the question is the documentation. I also plan on making an interface for connecting mod scripts.
                 | Most web-games must be rewritten in order to mod them.
             br
             li
@@ -99,21 +99,21 @@ block content
                 img(src="/res/idea-of-finished-game-appearance.png", alt="An image showing what the game will look like when it is to be completed").image
                 sup
                   label
-                    b Note: 
+                    b Note:
                     | This image is a low-quality image and does not represent a 100% accurate depiction.
-              br  
-              p It was originally intended that the game be based on firing blindly at the enemy player. As the development continued, 
+              br
+              p It was originally intended that the game be based on firing blindly at the enemy player. As the development continued,
                 | changes to the original concept were implemented.
             br
             li
               h3 Timeline
               h4 Describe and illustrate how you intend to spend your time for the duration of this project. What milestones need to be met and when?
               br
-              p Throughout the project's development, I plan to continue improving the functionality of the game, as well as the support for 
-                | lower-quality browsers and mobile devices. 
-        
+              p Throughout the project's development, I plan to continue improving the functionality of the game, as well as the support for
+                | lower-quality browsers and mobile devices.
+
         button(onclick="window.location.href='/game'").gotoGame Continue to #{title}
-				//- Button Looks disabled
-            
+        //- Button Looks disabled
+
     include ./discover.pug
     include ./footer.pug

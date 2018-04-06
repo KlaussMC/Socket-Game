@@ -1,32 +1,23 @@
 let p1, p2, p1base, p2base, spawn
 let gameOver = false;
-
 let minWidth, minHeight
 let mapWidth, mapHeight
-
 let mapScale = 15;
-
 let aim;
-
 let keys = [];
-
 let pcam;
-
 var bullet, pchar, p2char, baseImage, base2Image, rover_top, rover_bottom;
-
 var cavasWidth, canvasHeight
-
 var mmap;
-
 let msgFocus = false
-
 let mouseDown = false;
 
 var settings = {
   allowPlayerStrafe: true,
   autoPlayerRotation: true,
   showMinimap: true,
-  allowCheats: true
+  allowCheats: true,
+  maxPlayerHealth: 100
 }
 
 function preload() {
@@ -53,11 +44,14 @@ function setup() {
   mmap = new minimap(10, 10);
   // pop()
   document.querySelector("#name").innerHTML = window.sessionStorage.name
+
+  p1base = new pbase(0, p1.name)
 }
 function draw() {
   translate(width/2, height/2)
   if (!gameOver) {
     if (p2) {
+      if (!p2base) p2base = new pbase(1, p2.name)
 
       pcam.update()
 
@@ -77,6 +71,14 @@ function draw() {
         p1.update()
         spawn.update()
         p2.update();
+      }
+
+      p1base.show()
+      p1base.update()
+
+      if (p2base) {
+        p2base.show()
+        p2base.update()
       }
 
       socket.emit("allowCheats", settings.allowCheats)

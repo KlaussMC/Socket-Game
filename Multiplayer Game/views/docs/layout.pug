@@ -12,14 +12,14 @@ html
     .wrapper
       header
         h1 Docs
-        
+
         nav
           a(href="/") Home
-          
+
           form(action="search", method="get")
             input(type="search", name="search", placeholder="Search the documentation")
             button(type="submit") Search
-						
+
       article.content
         block content
       include ../discover.pug

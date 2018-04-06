@@ -2,6 +2,7 @@ class pbase {
   constructor(side, owner) {
     this.side=side;
     this.owner=owner
+    this.healRate = 2;
   }
   show() {
     imageMode(CENTER);
@@ -12,6 +13,11 @@ class pbase {
     }
   }
   update() {
-    console.log(this.owner);
+    // console.log(this.owner);
+    if (p1.name == this.owner) {
+      if (dist(p1.pos.x, p1.pos.y, (mapWidth / 2) - 100, 0) < p1.health * 2)
+        p1.health += this.healRate
+        p1.health = constrain(p1.health, 0, settings.maxPlayerHealth)
+    }
   }
 }

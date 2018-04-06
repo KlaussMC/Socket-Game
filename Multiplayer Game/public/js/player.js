@@ -7,7 +7,7 @@
     this.vel = createVector(0, 0);
     this.angle = 0;
     this.dir = 0
-    this.health = 100
+    this.health = settings.maxPlayerHealth
 
     this.projectiles = [null]
     this.rovers = [];
@@ -118,6 +118,7 @@
       }
 
     for (let i in this.rovers) { if(this.rovers[i]){this.rovers[i].update()} }
+    // this.showRovers()
     }
   }
   shoot() {
@@ -126,7 +127,7 @@
   damage(amnt) {
     if (this.invincible === false || millis() < 10e3) {
       this.health -= amnt;
-      this.health = constrain(this.health, 0, 100)
+      this.health = constrain(this.health, 0, settings.maxPlayerHealth)
       if (this.health == 0)
         console.log("He dedd")
     }
@@ -140,14 +141,22 @@
     this.projectiles=this.showProjectiles(data.projectiles)
     this.angle = data.angle
     this.visible=data.visible;
+    this.showRovers = data.rovers
   }
   sendStats() {
     update({name: this.name, health: this.health,
             pos: {x: this.pos.x, y: this.pos.y},
             projectiles: this.getProjectiles(),
             angle: this.angle,
-            visible:this.visible
+            visible:this.visible,
+            rovers: this.getRovers()
           })
+  }
+  getRovers() {
+    let rovers = []
+    for (let i in this.rovers) {
+      rovers.push(this.rovers[i].getStats())
+    }
   }
   getProjectiles() {
     let bullets = [];
@@ -162,6 +171,11 @@
       this.projectiles.push(new bulletImage(bullets[i].x, bullets[i].y, bullets[i].angle))
     }
     return this.projectiles;
+  }
+  showRovers() {
+    for (let i in this.rovers) {
+      this.showRovers.push(new showRover(this.rovers[i]))
+    }
   }
   addRover() {
     if (this.rovers.length < 4) {

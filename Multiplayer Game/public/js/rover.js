@@ -89,6 +89,16 @@ class rover {
       notify("You Do Not Have Enough Money For This Upgrade")
     }
   }
+  getProjectiles() {
+    let bullets = [];
+    for (let i = 1; i < this.projectiles.length; i++) {
+      bullets.push(this.projectiles[i].getStats())
+    }
+    return bullets
+  }
+  getStats() {
+    return {heading: this.vel.heading(), pos: this.pos, ange: this.angle, projectiles: this.getProjectiles()}
+  }
 }
 
 class showRover {
@@ -109,5 +119,12 @@ class showRover {
     rotate(this.angle + (HALF_PI - this.bottomAngle))
     image(rover_top_enemy, 0, 0, 50, 50)
     pop();
+  }
+  showProjectiles(bullets) {
+    this.projectiles = [];
+    for (let i in bullets) {
+      this.projectiles.push(new bulletImage(bullets[i].x, bullets[i].y, bullets[i].angle))
+    }
+    return this.projectiles;
   }
 }

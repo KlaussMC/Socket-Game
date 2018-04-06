@@ -14,7 +14,7 @@ class base {
     if (dist(p1.pos.x, p1.pos.y, this.pos.x, this.pos.y) < (p1.health/2) + (this.radius/2)) {
       if (frameCount % 20 == 0) {
         p1.health += this.healRate
-        p1.health = constrain(p1.health, 0, 100)
+        p1.health = constrain(p1.health, 0, settings.maxPlayerHealth)
       }
     }
   }
