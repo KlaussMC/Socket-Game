@@ -60,11 +60,21 @@ io.on('connection', socket => {
 
   socket.on("loss", () => {
     socket.broadcast.emit("win", null)
+    socket.emit("loss")
+  })
+  socket.on("win", () => {
+    socket.broadcast.emit("loss", null)
+    socket.emit("win")
   })
   socket.on('evalEnemy', msg => {
     socket.broadcast.emit('eval', msg)
   })
+  socket.on("captureSync", progress => socket.emit("captureSync", progress))
 
+  socket.on("p1base", dat => socket.broadcast.emit("p1base", dat))
+  socket.on("p2base", dat => socket.broadcast.emit("p2base", dat))
+
+  socket.on("showRover", dat => socket.broadcast.emit("showRover", dat))
 });
 
 module.exports = io;

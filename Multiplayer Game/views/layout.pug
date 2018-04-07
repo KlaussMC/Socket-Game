@@ -5,6 +5,7 @@ html
     link(rel='stylesheet', href='/css/main.css')
     link(rel='stylesheet', href='/css/global.css')
     link(rel='stylesheet', href='/css/notification.css')
+    link(rel='stylesheet', href='/css/roverList.css')
     meta(charset="utf-8")
     meta(name="keywords", content="2d, top-down-shooter, arcade, multiplayer, websockets, assignment")
     meta(name="author", content="Jacob Schneider")
@@ -13,7 +14,7 @@ html
     script(src="lib/p5.js")
 
     script socket = io.connect(`${window.location.hostname}:` + "#{port}")
-    
+
     script window.addEventListener("keydown", e => {e.keyCode == 116?window.location.reload():null})
 
   body

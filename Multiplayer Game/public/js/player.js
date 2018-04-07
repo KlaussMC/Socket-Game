@@ -11,12 +11,16 @@
 
     this.projectiles = [null]
     this.rovers = [];
+    this.roverPrice = 50;
 
     this.moving = false;
 
     this.money = 0;
     this.invincible = true;
     this.visible = true;
+    this.baseCapture = false
+
+    this.roverListOpen = false;
   }
   show() {
     noStroke();
@@ -117,8 +121,13 @@
         }
       }
 
-    for (let i in this.rovers) { if(this.rovers[i]){this.rovers[i].update()} }
-    // this.showRovers()
+      this.showRovers=[]
+      for (let i in this.rovers) {
+        if(this.rovers[i]){
+          this.rovers[i].update()
+          this.showRovers.push(this.rovers[i].getStats())
+        }
+      }
     }
   }
   shoot() {
@@ -141,22 +150,14 @@
     this.projectiles=this.showProjectiles(data.projectiles)
     this.angle = data.angle
     this.visible=data.visible;
-    this.showRovers = data.rovers
   }
   sendStats() {
     update({name: this.name, health: this.health,
             pos: {x: this.pos.x, y: this.pos.y},
             projectiles: this.getProjectiles(),
             angle: this.angle,
-            visible:this.visible,
-            rovers: this.getRovers()
+            visible:this.visible
           })
-  }
-  getRovers() {
-    let rovers = []
-    for (let i in this.rovers) {
-      rovers.push(this.rovers[i].getStats())
-    }
   }
   getProjectiles() {
     let bullets = [];
@@ -172,21 +173,34 @@
     }
     return this.projectiles;
   }
-  showRovers() {
-    for (let i in this.rovers) {
-      this.showRovers.push(new showRover(this.rovers[i]))
-    }
-  }
   addRover() {
     if (this.rovers.length < 4) {
-      if (this.money > 200) {
+      if (this.money > this.roverPrice) {
         this.rovers.push(new rover(p1.pos.x, p1.pos.y, window.sessionStorage.name, this.rovers.length - 1))
-        this.money -= 200;
+        this.money -= this.roverPrice;
       } else {
         notify("You do not have enough money to buy a rover")
       }
     } else {
       notify("You do not have enough room for a fourth rover")
+    }
+  }
+  showCapture(progress, capturer) {
+    if (progress > 0) {
+      progressBar(progress, capturer)
+    }
+  }
+  roverList() {
+    if (!gameOver && document.querySelector("#canvas").style.display == "block" && !msg.isOpen) {
+      this.roverListOpen=!this.roverListOpen;
+      if (this.roverListOpen) {
+        document.querySelector(".roverList").style.display="block"
+        let rovers=""
+        for (let i in this.rovers) { rovers+=`<div class="rover">Rover ${i+1}</div><br>` }
+        document.querySelector("#Rovers").innerHTML=rovers
+      } else {
+        document.querySelector(".roverList").style.display="none"
+      }
     }
   }
 }

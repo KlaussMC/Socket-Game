@@ -1,0 +1,42 @@
+.roverList {
+  width: 50vw;
+  height: 50vh;
+  position: fixed;
+  top:25vh;
+  left:25vw;
+  background: #515151;
+  z-index: 100;
+  padding: 10px;
+  border-radius: 10px;
+}
+* {
+  box-sizing: border-box;
+}
+.roverList > .container > button {
+  border: none;
+  background: #515151;
+  color: #eee;
+  border-radius: 10px;
+  font-size: 16pt;
+  grid-row: 1;
+  padding: 5px;
+}
+.roverList > .container {
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  grid-template-columns: 1fr;
+  height: 100%;
+  width: 100%;
+  background: #333;
+  padding: 10px;
+  border-radius: 10px;
+}
+.roverList > .container > #Rovers {
+  margin: 10px;
+  width: 100%;
+  border-top: 1px solid #333;
+  color: #aaa;
+  display: block;
+  height: 100%;
+  grid-row: 2;
+}

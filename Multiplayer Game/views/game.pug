@@ -34,6 +34,11 @@ block content
 
   .notifications
 
+  .roverList(style="display: none;")
+    .container
+      button(onclick="p1.addRover()") New Rover
+      ul#Rovers
+
 
   div.prompt
     .prompt-header null
@@ -47,5 +52,3 @@ block content
 
   button(onclick="startGame()").startBtn Start Game
   div(style="display: none;")#canvas
-
-

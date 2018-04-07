@@ -3,7 +3,7 @@ class rover {
     this.pos = createVector(x, y)
     this.vel = createVector(10, 10);
     this.owner = owner
-    this.damage = 0
+    this.damage = 2
     this.health = 100
     this.strength = 1;
     this.speed = 3;
@@ -59,6 +59,7 @@ class rover {
         this.shoot()
       }
     }
+    this.showOnOtherPlayer()
   }
   shoot() {
     this.projectiles.push(new projectile(this.pos.x, this.pos.y, this.angle*-1, this.damage, this.projectiles.length));
@@ -84,7 +85,7 @@ class rover {
         case "range":
         this.attackRange*=2;
       }
-      p1.money -= 100;
+      p1.money -= p1.roverPrice/2;
     } else {
       notify("You Do Not Have Enough Money For This Upgrade")
     }
@@ -97,13 +98,16 @@ class rover {
     return bullets
   }
   getStats() {
-    return {heading: this.vel.heading(), pos: this.pos, ange: this.angle, projectiles: this.getProjectiles()}
+    return {heading: this.vel.heading(), pos: {x: this.pos.x, y: this.pos.y }, ange: this.angle, projectiles: this.getProjectiles()}
+  }
+  showOnOtherPlayer() {
+    socket.emit("showRover", this.getStats())
   }
 }
 
 class showRover {
   constructor(data) {
-    this.pos = data.pos
+    this.pos = createVector(data.pos.x, data.pos.y)
     this.angle = data.angle
     this.projectiles = data.projectiles
     this.bottomAngle = data.heading
