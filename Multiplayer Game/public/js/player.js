@@ -16,17 +16,17 @@
     this.moving = false;
 
     this.money = 0;
-    this.invincible = true;
+    this.invincible = false;
     this.visible = true;
     this.baseCapture = false
 
     this.roverListOpen = false;
+    this.lastXDir = 0
+    this.lastYDir = 0
   }
   show() {
     noStroke();
     fill(255);
-
-
     push();
     translate(this.pos.x, this.pos.y);
     rotate(PI - this.angle);
@@ -51,60 +51,74 @@
   update() {
     this.vel = createVector(0, 0)
 
-    if (this.rovers.length > 0)
-      this.invincible = true
-    else
-      this.invincible = false
-
     if (this.useControls) {
-      if (!settings.allowPlayerStrafe) {
-        if (keyIsDown(87)) {
-          this.dir = 1;
-        } else if (keyIsDown(83)) {
-          this.dir = -1;
-        } else if (!keyIsDown(87) && !keyIsDown(83))
-          this.dir = 0;
-
-        if (keyIsDown(68))
-          this.angle -= 0.05;
-        if (keyIsDown(65))
-          this.angle += 0.05;
-
-        this.pos.x += ((this.health / 10) * sin(this.angle)) * this.dir;
-        this.pos.y += ((this.health / 10) * cos(this.angle)) * this.dir;
-
-      } else {
-
-        if (keyIsDown(68)) {
-          this.vel.x = 1 * (this.health / 10);
-          if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
+      if (keyIsDown(68)) {
+        if (isColliding(this.pos.x, this.pos.y) == 0) {
+            this.vel.x = 1 * (this.health / 10);
+            this.lastXDir = 2
+          // dir 2
+        } else {
+          if (this.lastXDir != 2) {
+            this.vel.x = 1 * (this.health / 10);
+            this.lastXDir = 2
+          }
         }
-        if (keyIsDown(65)) {
-          this.vel.x = -1 * (this.health / 10);
-          if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
-        }
-
-        if (keyIsDown(87)) {
-          this.dir = 1
-          this.vel.y = -1 * (this.dir * (this.health / 10));
-          if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
-        } else if (keyIsDown(83)) {
-          this.dir = -1
-          this.vel.y = -1 * (this.dir * (this.health / 10));
-          if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
-        } else if (!keyIsDown(87) && !keyIsDown(83)) {
-          this.dir = 0;
-        }
-
-        if (!settings.autoPlayerRotation) {
-          if (keyIsDown(37))
-            this.angle += 0.05;
-          if (keyIsDown(39))
-            this.angle -= 0.05
-        }
-        this.pos.add(this.vel)
-        this.sendStats()
+        if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
       }
+      if (keyIsDown(65)) {
+        if (isColliding(this.pos.x, this.pos.y) == 0) {
+            this.vel.x = -1 * (this.health / 10);
+            this.lastXDir = 1
+          // dir 1
+        } else {
+          if (this.lastXDir != 1) {
+            this.vel.x = -1 * (this.health / 10);
+            this.lastXDir = 1
+          }
+        }
+        if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
+      }
+
+      if (keyIsDown(87)) {
+        this.dir = 1
+        if (isColliding(this.pos.x, this.pos.y) == 0) {
+            this.vel.y = -1 * (this.dir * (this.health / 10));
+            this.lastYDir = 4
+          //dir 4
+        } else {
+          if (this.lastYDir != 4) {
+            this.vel.y = -1 * (this.dir * (this.health / 10));
+            this.lastYDir = 4
+          }
+        }
+
+        if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
+      } else if (keyIsDown(83)) {
+        this.dir = -1
+        if (isColliding(this.pos.x, this.pos.y) == 0) {
+          this.vel.y = -1 * (this.dir * (this.health / 10));
+          this.lastYDir = 3
+          // dir 3
+        } else {
+          if (this.lastYDir != 3) {
+            this.vel.y = -1 * (this.dir * (this.health / 10));
+            this.lastYDir = 3
+          }
+        }
+
+        if (settings.autoPlayerRotation) this.angle = HALF_PI - this.vel.heading();
+      } else if (!keyIsDown(87) && !keyIsDown(83)) {
+        this.dir = 0;
+      }
+
+      if (!settings.autoPlayerRotation) {
+        if (keyIsDown(37))
+          this.angle += 0.05;
+        if (keyIsDown(39))
+          this.angle -= 0.05
+      }
+      this.pos.add(this.vel)
+      this.sendStats()
 
       this.pos.x = constrain(this.pos.x, 0-mapWidth/2, mapWidth/2);
       this.pos.y = constrain(this.pos.y, 0-mapHeight/2, mapHeight/2);
@@ -195,8 +209,11 @@
       this.roverListOpen=!this.roverListOpen;
       if (this.roverListOpen) {
         document.querySelector(".roverList").style.display="block"
+        document.querySelector(".upgrades").style.display="none"
         let rovers=""
-        for (let i in this.rovers) { rovers+=`<div class="rover">Rover ${i+1}</div><br>` }
+
+        for (let i in this.rovers) { rovers+=`<div class="rover" onclick="upgradeItem(${i})">Rover ${i+1}</div><br>` }
+
         document.querySelector("#Rovers").innerHTML=rovers
       } else {
         document.querySelector(".roverList").style.display="none"

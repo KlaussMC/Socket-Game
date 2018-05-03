@@ -1,20 +1,18 @@
-﻿extends layout
+extends layout
 
 block content
 	style.
-		body {
+		.msg {
 			padding: 8px;
 			background: #f4f4f4;
-		}
-		* {
 			font-family: monospace;
 			font-size: 12pt;
 			user-select: select !important;
 			color: #333 !important;
 		}
-
-	h1= message
-	br
-	h2= error.status
-	br
-	pre #{error.stack}
+	section.msg
+		h1= message
+		br
+		h2= error.status
+		br
+		pre #{error.stack}

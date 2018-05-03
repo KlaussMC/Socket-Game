@@ -104,6 +104,7 @@ a {
   border: none;
   font-size: 14pt;
   font-family:monospace;
+  width: 100vw;
 }
 .startBtn {
   width: 50vw;

@@ -1,54 +1,80 @@
-﻿extends layout
+﻿doctype html
+html
+  head
+    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='/css/notification.css') 
+    link(rel='stylesheet', href='/css/roverList.css')
+    
+    script(src="lib/socket.io.js")
+    script(src="lib/p5.js")
 
-block content
-  script(src="/js/cam.js")
-  script(src="/js/base.js")
-  script(src="/js/player.js")
-  script(src="/js/msgInterpreter.js")
-  script(src="/js/rover.js")
-  script(src="/js/playerbase.js")
-  script(src="/js/mouseAim.js")
-  script(src="/js/index.js")
-  script(src="/js/minimap.js")
-  script(src="/js/socketHandler.js")
-  script(src="/js/notify.js")
-  script(src="/js/projectile.js")
+    script socket = io.connect(`${window.location.hostname}:` + "#{port}")
+    script window.addEventListener("keydown", e => {e.keyCode == 116?window.location.reload():null})
+    
+    script(src="/js/cam.js")
+    script(src="/js/base.js")
+    script(src="/js/player.js")
+    script(src="/js/msgInterpreter.js")
+    script(src="/js/rover.js")
+    script(src="/js/playerbase.js")
+    script(src="/js/mouseAim.js")
+    script(src="/js/index.js")
+    script(src="/js/mainFuncsAndVars.js")
+    script(src="/js/minimap.js")
+    script(src="/js/socketHandler.js")
+    script(src="/js/notify.js")
+    script(src="/js/projectile.js")
+    script(src="/js/obstacle.js")
+  body
 
-  div(style="display: none;").notification
-    .value
-    button(onclick="closeNotification(this.parentNode)").closeBtn
-      img(src="/res/close.png")
+    div(style="display: none;").notification
+      .value
+      button(onclick="closeNotification(this.parentNode)").closeBtn
+        img(src="/res/close.png")
 
-  .gameBar
-    .item
-      #health
-        img(src="/res/heart.png")
-    .item
-      #name
-    .item
-      #money 0
+    .gameBar
+      .item
+        #health
+          img(src="/res/heart.png")
+      .item
+        #name
+      .item
+        #money 0
 
-  div(style="display: none;").msg
-    .output
-    input(type="text").msg-input
+    div(style="display: none;").msg
+      .output
+      input(type="text").msg-input
 
-  .notifications
+    .notifications
 
-  .roverList(style="display: none;")
-    .container
-      button(onclick="p1.addRover()") New Rover
-      ul#Rovers
+    .roverList(style="display: none;")
+      .container
+        button(onclick="p1.addRover()") New Rover
+        ul#Rovers
+      .upgrades
+        ul
+          li
+            button(onclick="upgrade(`damage`)") Damage
+          li
+            button(onclick="upgrade(`range`)") Attack Range
+          li
+            button(onclick="upgrade(`resistance`)") Damage Resistance
+          li
+            button(onclick="upgrade(`speed`)") Movement Speed
+          li
+            button(onclick="upgrade(`attack speed`)") Attack Speed
+          li
+            button(onclick="still()")#still Stationairy
+        
+    div.prompt
+      .prompt-header null
+      input(type="text").prompt-value
 
+      button(onclick="ok()") ok
+      button(onclick="hide()") cancel
 
-  div.prompt
-    .prompt-header null
-    input(type="text").prompt-value
+      script function hide() { document.querySelector(".prompt").style.display = "none" }
+      script function ok() { window.sessionStorage.name=document.querySelector('.prompt-value').value; hide() }
 
-    button(onclick="ok()") ok
-    button(onclick="hide()") cancel
-
-    script function hide() { document.querySelector(".prompt").style.display = "none" }
-    script function ok() { window.sessionStorage.name=document.querySelector('.prompt-value').value; hide() }
-
-  button(onclick="startGame()").startBtn Start Game
-  div(style="display: none;")#canvas
+    button(onclick="startGame()").startBtn Start Game
+    div(style="display: none;")#canvas

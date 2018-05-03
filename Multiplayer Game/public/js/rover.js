@@ -1,5 +1,5 @@
 class rover {
-  constructor(x, y, owner, index, stationairy) {
+  constructor(x, y, owner, index) {
     this.pos = createVector(x, y)
     this.vel = createVector(10, 10);
     this.owner = owner
@@ -10,8 +10,8 @@ class rover {
     this.attackSpeed = 1;
     this.attackRange = 100;
     this.angle = 0;
-    this.still = stationairy
-
+    this.still = false
+    this.index=index
     this.projectiles = [null]
 
     this.index = index;
@@ -60,12 +60,15 @@ class rover {
       }
     }
     this.showOnOtherPlayer()
+    if (this.health <= 0) {
+      p1.rovers.splice(p1.rovers.indexOf(this), 1)
+    }
   }
   shoot() {
     this.projectiles.push(new projectile(this.pos.x, this.pos.y, this.angle*-1, this.damage, this.projectiles.length));
   }
   upgrade(what) {
-    if (p1.money > 100) {
+    if (p1.money >= p1.roverPrice/2) {
       switch (what) {
         case "speed":
           this.speed *= 2
@@ -98,7 +101,7 @@ class rover {
     return bullets
   }
   getStats() {
-    return {heading: this.vel.heading(), pos: {x: this.pos.x, y: this.pos.y }, ange: this.angle, projectiles: this.getProjectiles()}
+    return {heading: this.vel.heading(), pos: {x: this.pos.x, y: this.pos.y }, ange: this.angle, projectiles: this.getProjectiles(), index: this.index}
   }
   showOnOtherPlayer() {
     socket.emit("showRover", this.getStats())
@@ -111,6 +114,7 @@ class showRover {
     this.angle = data.angle
     this.projectiles = data.projectiles
     this.bottomAngle = data.heading
+    this.index=data.index
   }
   show() {
     push();
@@ -123,6 +127,13 @@ class showRover {
     rotate(this.angle + (HALF_PI - this.bottomAngle))
     image(rover_top_enemy, 0, 0, 50, 50)
     pop();
+  }
+  handleBulletCollision() {
+    for (let i in p1.projectiles) {
+      if (dist(this.pos.x, this.pos.y, p1.projectiles[i].pos.x, p1.projectiles[i].pos.y) < 50) {
+        socket.emit("evalEnemy", `p1.rovers[${this.index}].health-=${p1.projectiles[i].damage}`)
+      }
+    }
   }
   showProjectiles(bullets) {
     this.projectiles = [];

@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  .info
+    ul.comments
+      each item in input
+        li
+          .date=item[1]
+          .msg=item[2]
+    .addComment
+      form(action="/notes", method="post")#form
+        textarea(required, name="note", id="note", placeholder="Please leave me a message, so that I can improve for next time.")
+        button(type="submit", id="save") Save Changes
+        
+  script var shift=false;
+  script.
+    window.addEventListener("keydown", e => { if (e.keyCode == 16) {
+      shift=true
+      console.log(shift)
+    }})
+  script.
+    window.addEventListener("keyup", e => { if (e.keyCode == 16) {
+      shift=false
+    }})
+  script.
+    window.addEventListener("keyup", e => { if (e.keyCode == 13) {
+      if (shift)
+        document.querySelector("#form").submit()
+    }})
