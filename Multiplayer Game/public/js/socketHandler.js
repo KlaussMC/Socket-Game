@@ -1,5 +1,5 @@
 ﻿socket.on("testMessage", msg => {
-  if (msg != "connect") {console.log(msg)} else {registerP2()}
+  if (msg != "connect") {console.log(msg);} else { reset() }
 })
 
 socket.on("p2", name => {
@@ -44,11 +44,13 @@ socket.on("damage", amnt => {
 socket.on("win", () => {
   gameOver = true
   won = true;
+  endGame(won)
   console.log("Win")
 })
 socket.on("loss", () => {
   gameOver = true
   won = false
+  endGame(won)
   console.log("Loss")
 })
 

@@ -37,16 +37,20 @@ msg = {
       }
     }
     document.querySelector(".msg-input").addEventListener("keydown", e => {
-      if (e.keyCode == 13)
-        msg.run(document.querySelector(".msg-input").value)
-      else if (e.keyCode == 38) {
-        msg.focusIndex--;
-        if (msg.focusIndex < 0) msg.focusIndex = msg.history.length-1;
-        document.querySelector(".msg-input").value = msg.history[msg.focusIndex]
-      } else if (e.keyCode == 40) {
-        msg.focusIndex++;
-        if (msg.focusIndex > msg.history.length-1) msg.focusIndex = 0;
-        document.querySelector(".msg-input").value = msg.history[msg.focusIndex]
+      switch (e.keyCode) {
+        case 13:
+          msg.run(document.querySelector(".msg-input").value)
+          break;
+        case 38:
+          msg.focusIndex--;
+          if (msg.focusIndex < 0) msg.focusIndex = msg.history.length-1;
+          document.querySelector(".msg-input").value = msg.history[msg.focusIndex]
+          break;
+        case 40:
+          msg.focusIndex++;
+          if (msg.focusIndex > msg.history.length-1) msg.focusIndex = 0;
+          document.querySelector(".msg-input").value = msg.history[msg.focusIndex]
+          break;
       }
     })
   },

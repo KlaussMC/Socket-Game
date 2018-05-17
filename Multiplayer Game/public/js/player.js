@@ -1,4 +1,4 @@
-﻿class player {
+class player {
   constructor(name, useControls) {
     this.name = name
     this.useControls = useControls

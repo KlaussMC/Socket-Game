@@ -5,11 +5,12 @@ html
     link(rel='stylesheet', href='/css/notification.css') 
     link(rel='stylesheet', href='/css/roverList.css')
     
-    script(src="lib/socket.io.js")
-    script(src="lib/p5.js")
+    script(src="js/lib/socket.io.js")
+    script(src="js/lib/p5.js")
+    script(src="js/lib/matter.js")
 
     script socket = io.connect(`${window.location.hostname}:` + "#{port}")
-    script window.addEventListener("keydown", e => {e.keyCode == 116?window.location.reload():null})
+    script window.addEventListener("keydown", e => {e.keyCode == 116?window.location.reload():null}) // for browsers that don't support 'F5' to reload
     
     script(src="/js/cam.js")
     script(src="/js/base.js")
@@ -76,5 +77,6 @@ html
       script function hide() { document.querySelector(".prompt").style.display = "none" }
       script function ok() { window.sessionStorage.name=document.querySelector('.prompt-value').value; hide() }
 
-    button(onclick="startGame()").startBtn Start Game
+    button(onclick="startGame()").startBtn Ready!
+    button(onclick="newMatch()", style="display: none;", class="startBtn").newMatch New Match!
     div(style="display: none;")#canvas

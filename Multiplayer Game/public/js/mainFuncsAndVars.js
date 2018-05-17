@@ -48,14 +48,34 @@ function registerP2() {
   document.querySelector("#canvas").style.display = "block";
   msg.listener()
   document.querySelector(".startBtn").style.display = "none";
+  document.querySelector(".newMatch").style.display = "none";
 }
 
 function startGame() {
   registerP2()
   socket.emit("testMessage", "connect")
   socket.emit("p1base", {owner: p1base.owner, side: p1base.side})
+  p1.money = window.sessionStorage.money;
+  gameOver=false;
+  win=false;
 }
-
+function reset() {
+  p1.health = settings.maxPlayerHealth;
+  p1.pos.x = 0;
+  p1.pos.y = 0;
+  p1.projectiles = []
+  p1.rovers = [] // todo: load rovers from sessionStorage
+}
+function newMatch() {
+  p2 = undefined;
+  registerP2()
+  reset()
+  socket.emit("testMessage", "connect")
+  socket.emit("p1base", {owner: p1base.owner, side: p1base.side})
+  p1.money = window.sessionStorage.money;
+  gameOver=false;
+  win=false;
+}
 function showP1Stats() {
   document.querySelector("#health").innerHTML = p1.health + "<img src='/res/heart.png'>";
   document.querySelector("#money").innerHTML = "$ " + p1.money;
@@ -115,17 +135,20 @@ function progressBar(val, color) {
     document.querySelector("#still").innerHTML = p1.rovers[i].still?"Movable":"Stationary"
   }
 }
-function isColliding(a,b){
-  for (let c in obstacles) {
-    let d = obstacles[c]
-    if (((p1.pos.x > d.pos.x - (d.size/2)) && (p1.pos.x < d.pos.x + (d.size/2))) && ((p1.pos.y > d.pos.y - (d.size/2)) && (p1.pos.y < d.pos.y + (d.size/2)))) {
-      // let out = Math.round(map(p5.Vector.sub(p1.pos, d.pos).heading(), -PI, PI, 1, 4))
-      // console.log(out)
-      // return out
+function isColliding() {
+  for (let g in obstacles) {
+    let h = obstacles[g];
+    if (p1.pos.x > h.pos.x - h.size / 2 && p1.pos.x < h.pos.x + h.size / 2 && p1.pos.y > h.pos.y - h.size / 2 && p1.pos.y < h.pos.y + h.size / 2)
       return 1
-    }
   }
-  return 0;
+  return 0
 }
-
+function endGame(victory) {
+  document.querySelector(".newMatch").style.display = "block";
+  if (victory)
+    window.sessionStorage.money = p1.money;
+  else {
+    window.sessionStorage.money = 0;
+  }
+}
 window.addEventListener("keydown", e => e.keyCode==82?p1.roverList():null)

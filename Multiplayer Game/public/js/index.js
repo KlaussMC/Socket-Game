@@ -26,7 +26,7 @@ function setup() {
   p1base = new pbase(0, p1.name)
 
   document.querySelector("#name").innerHTML = window.sessionStorage.name
-  obstacles.push(new obstacle({pos: {x: 200, y: 200}, size: 200}))
+  // obstacles.push(new obstacle({pos: {x: 200, y: 200}, size: 200}))
 }
 function draw() {
   translate(width/2, height/2)
@@ -88,7 +88,7 @@ function draw() {
       stroke(255);
       strokeWeight(5)
       textSize(35)
-      text("Waiting for players to connect", 0 - (("Waiting for players to connect".length / 2) * 17.5), 0);
+      text("Waiting for players to connect", 0 - (("Waiting for players.".length / 2) * 17.5), 0);
     }
   } else {
     if (won === true) {
