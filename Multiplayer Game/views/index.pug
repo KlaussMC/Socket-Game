@@ -1,4 +1,54 @@
 extends layout
 
 block content
-  h1=title
+  .info
+    h1 Welcome to #{title}!
+    
+    article
+      p #{title} is designed to be a 2 player game based on a project by 
+        a() Jordan Jantschulev
+        //- link jordan's game
+        |.
+      br
+      p
+        b.indent Please Note:
+        |  This game is in its early stage of development and will therefore contain bugs that have not been adressed yet.
+        | If you wish to contribute to this project, please file an issue on 
+        a(href="https://github.com/KlaussMC/Socket-Game/issues") GitHub
+        |. Thank you for any contribution.
+        
+      .imageViewer
+        nav.nav
+          button#prev Previous
+          button#next Next
+        img(src="/res/screenshots/image1.png").img
+        
+        script document.querySelector("#prev").onclick = () => prev();
+        script document.querySelector("#next").onclick = () => next();
+        script window.image=1;
+        script window.imagePath="/res/screenshots/image"
+        script window.imageAmount=#{imgAmnt}
+        script.
+          function prev() {
+            window.image = window.image <= 1 ? window.imageAmount : window.image - 1;
+            display()
+          }
+          
+        script.
+          function next() {
+            window.image = window.image >= window.imageAmount ? 1 : window.image + 1;
+            display()
+          }
+          
+        script.
+          function display() {
+            document.querySelector(".img").setAttribute("src", window.imagePath + String(window.image) + ".png")
+          }
+    p The response to the 9 questions asked before the project was started can be found on the 
+    a(href="/about") About
+    |  page.
+    br
+    br
+    h1
+      span "I proud of you!" - 
+        b Sophie Paskin, 2018.

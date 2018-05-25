@@ -4,24 +4,29 @@
   padding: 0px;
   box-sizing: border-box;
   overflow-x: hidden;
+  outline: none;
 }
 body {
   background: #333;
   color: #eee;
 }
 .wrapper {
+  width: 100%;
   display: grid;
-  grid-template-areas: 'a a' 'b c' 'd d';
+  grid-template-areas: 'a a' 'b c' 'd d' 'e e';
   grid-template-columns: 1fr 3.5fr;
   grid-template-rows: auto minmax(calc(100vh - 50px), auto) auto;
-  color: rgb()
+}
+b.indent:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 header {
   grid-area: a;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 3fr;
   height: 50px;
   background: dodgerblue;
   line-height: 50px;
@@ -38,8 +43,7 @@ header nav > * {
   text-align: center;
   display: block;
   float: left;
-
-  width: 50%;
+  width: 100%;
 }
 header nav a {
   color: #333;
@@ -70,10 +74,15 @@ a {
   color: #eee;
 }
 
-footer {
+.footer {
   background: #eee !important;
   color: #333 !important;
 }
+.footer2 {
+  background: #eee!important;
+  color: #333!important;
+}
+
 
 .inlineCode {
   color: yellow;
@@ -116,4 +125,44 @@ article .nav > * {
   padding: 10px;
   background: #555;
   border-radius: 5px;
+}
+table, tbody, tr {
+  border: 1px solid #eee;
+  border-collapse: collapse;
+}
+thead * {
+  font-weight: bold;
+}
+td {
+  padding: 8px;
+}
+tr:nth-of-type(odd) {
+  background: #022d3f;
+}
+
+.search {
+  width: 80%;
+  position: relative;
+  left: 10%;
+}
+.search > * {
+  padding: 10px;
+}
+.search input {
+  width: 80%;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border: 1px solid cornflowerblue;
+}
+.search button {
+  width: 20%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: 1px solid cornflowerblue;
+  background: cornflowerblue;
+  color: #eee;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
 }

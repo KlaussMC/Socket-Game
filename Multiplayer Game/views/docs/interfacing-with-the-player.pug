@@ -1,0 +1,71 @@
+extends layout
+
+block content
+  .main
+    h1 Interfacing with the Player
+    br
+    h3 The Player class
+    p This project makes use of JavaScrip's Object Oriented Programming (OOP), meaning that everything in the game is an object. 
+      | The player is no exception; it is stored under a global variable named 
+      i p1
+      | . It contains variables such as 
+      i health, speed, pos, roverPrice 
+      | and 
+      i rovers. 
+      | Modding the game was a large focus for the project, so naturally, pretty much everything is moddable. 
+      | In the following example, the player's health is restored to 100% and locked there.
+      .code
+        .red var 
+        .orange olddraw 
+        .red = 
+        .orange draw
+        .red ; 
+        .orange draw 
+        .red = 
+        .blue () 
+        .red => 
+        .blue { 
+        .orange olddraw
+        .blue ()
+        .red ; 
+        .orange p1
+        .red .
+        .orange health 
+        .red = 
+        .orange settings
+        .red .
+        .orange maxPlayerHealth
+        .red ; 
+        .blue }
+      h4 So what is it doing?
+      br
+      | Well, first things first: retrieve the old draw loop. 
+      | So that it can be reused once we override the old draw function with the new one.
+      | This is done so that the player's health is restored with every loop iteration. 
+      | Next, create a global variable called 
+      i draw 
+      | that will override the old loop, it's value will be an anonymous ES6 
+      a(href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions') Arrow Function. 
+      | Its job is to call the old draw loop (
+      i olddraw
+      | ) and then execute the statement that sets the player's health to the value of 
+      i settings.maxPlayerHealth 
+      | which defaults to 100.
+      br
+      br
+      h4 But there's got to be a better way!
+      br
+      p Well, yes and no. There is a more efficient way of doing things, by working with the player class of course! 
+        | The player has a variable called 
+        .inlineCode invincible
+        | . If set to true, will, well, make the player invincible.
+        .code
+          .orange p1
+          .red .
+          .orange invincible 
+          .red = 
+          .green true
+          .red ;
+        | However, this method is not encouraged as it places a block on the player's 
+        .inlineCode damage()
+        |  method. Meaning that it is executing a function that does nothing. This is both time - and resource - consuming.

@@ -1,0 +1,89 @@
+extends layout
+
+block content
+  .main
+    h1 The Player's Variables
+    br
+    p The player has all sorts of different variables to be played with! 
+      | This page will outline what each variable does and what type it accepts.
+      br
+      br
+      table
+        thead
+          tr 
+            td Variable(property) name
+            td Type
+            td Used for
+        tbody
+          tr
+            td.inlineCode name
+            td string
+            td Stores the player name. Can also be found at window.sessionStorage.name
+          tr
+            td.inlineCode useControls
+            td boolean
+            td Indicates whether the player will be recognised as 
+              .inlineCode p1 
+              | or
+              .inlineCode  p2
+              | .
+          tr 
+            td.inlineCode pos
+            td p5.Vector
+            td Stores player position
+          tr
+            td.inlineCode vel
+            td p5.Vector
+            td Stores player velocity
+          tr
+            td.inlineCode angle
+            td Float
+            td Represents angle player is facing
+          tr 
+            td.inlineCode health
+            td Integer
+            td Stores player health
+          tr
+            td.inlineCode speed
+            td Integer
+            td Used to identify player speed
+          tr
+            td.inlineCode projectiles
+            td Array of projectile objects
+            td Stores all the projectile objects that the player has fired
+          tr
+            td.inlineCode rovers
+            td Array of rover objects
+            td Stores all the rover objects that the player has bought
+          tr
+            td.inlineCode roverPrice
+            td Integer
+            td Holds cost of rovers
+          tr
+            td.inlineCode moving
+            td boolean
+            td Defines whether the player is moving
+          tr
+            td.inlineCode money
+            td Integer
+            td Stores the players fortunes earned during battle
+          tr
+            td.inlineCode invincible
+            td boolean
+            td If true, player does not take damage
+          tr
+            td.inlineCode visible
+            td boolean
+            td If false, player is invisible to opponent, however still visible on minimap
+          tr
+            td.inlineCode roverListOpen
+            td boolean
+            td If true, shows rover list
+          tr
+            td.inlineCode lastXDir
+            td Integer
+            td Stores the last direction on the x-axis the player was facing
+          tr
+            td.inlineCode lastYDir
+            td Integer
+            td Stores the last direction on the y-axis the player was facing

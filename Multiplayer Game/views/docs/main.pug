@@ -1,4 +1,41 @@
 extends layout
 
 block content
-  
+  .main
+    article
+      h2 The Game
+      br
+      h3 Controls:
+      .indent
+        p The game's controls are very streight-forward, however, are also changeable through the 
+          a(href="/docs/player-command-menu")
+            span player-command menu
+          br
+          br
+          h4 The Default Control-Sceme:
+          .indent
+            p To use the default control sceme, the standart keys are used for movement.
+             b "w", "a", "s", "d"
+             | keys are used to move the player. When combined, they will rotate the player accordingly.
+             | For example "w" and "a" key will point the player north-east.
+          br
+          h4 The Altername Control-Sceme:
+          .indent
+            p The altername control sceme (Tank-controls) will move the player the way that a car moves, the
+              b "a" and "d"
+              | keys rotate the player, while the keys
+              b "w" and "s"
+              | move the player backwards and forwards, respectively.
+          br
+          h4 Both Scemes:
+          .indent
+            p For both control scemes, the space-key will fire. Keys such as the
+              b "ctrl" key
+              |  on windows, or the
+              b "CMD" key
+              |  on Mac, will fire a more powerful shot, however, these can only be used once every 30 seconds.
+              br
+              | The 
+              b shift
+              |  key uses the sprint ability, where the player can move faster than bullets for 10 seconds.
+              | The tab key will toggle the Player-command menu, from where, a player can talk to the opponent.

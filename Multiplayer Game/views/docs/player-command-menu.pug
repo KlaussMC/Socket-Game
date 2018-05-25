@@ -1,43 +1,44 @@
 extends layout
 
 block content
-  h1 The Player Command Menu
-  br
-  h3 Introduction:
-  .indent
-    p The player command menu is an interface for interacting with the code of the game.
+  .main
+    h1 The Player Command Menu
+    br
+    h3 Introduction:
+    .indent
+      p The player command menu is an interface for interacting with the code of the game.
+        br
+        | Using this interface, the entire game can be controlled and modified to the liking of the user.
+        | The game's mod code is plain JavaScript with 2 third-party libraries: 
+        a(href="https://p5js.org/") p5.js 
+        | and 
+        a(href="https://socket.io") Socket.io
+        | .
       br
-      | Using this interface, the entire game can be controlled and modified to the liking of the user.
-      | The game's mod code is plain JavaScript with 2 third-party libraries: 
-      a(href="https://p5js.org/") p5.js 
-      | and 
-      a(href="https://socket.io") Socket.io
-      | .
-    br
-    p To access the player menu, press tab and a prompt will appear at the lower-left corner of the game window, 
-      | simply type game code in here and press enter to run the code.
-    br
-    p A #{title} modscript is a JavaScript file (.js) that contains game code. It can contain any valid JavaScript, however, 
-      | third-party libraries such as JQuery are not supported by default. If you wish to use such libraries, 
-      | your modscript must include a reference to the 
-      b hosted 
-      | library. 
-    br
-    p To install a mod script, a 
-      b hosted 
-      | version of the modscript must be referenced. To do this, press tab, to toggle the command menu, type 
-      i install([urlToYourFile]) 
-      | where the content inside the parentheses (including the square brackets) is the full url to the file.
-      br 
-      | For example: 
-      .code
-        .orange install
-        .blue (
-        .green "https://example.com/hosted/files/mod1.js"
-        .blue )
-        .red ;
-      | Pressing enter will install the mod file. This shouldn't take very much time (if any).
-      
+      p To access the player menu, press ESC and a prompt will appear at the top-left corner of the game window, 
+        | simply type game code in here and press enter to run the code.
+      br
+      p A #{title} modscript is a JavaScript file (.js) that contains game code. It can contain any valid JavaScript, however, 
+        | third-party libraries such as JQuery are not supported by default. If you wish to use such libraries, 
+        | your modscript must include a reference to the 
+        b hosted 
+        | library. 
+      br
+      p To install a mod script, a 
+        b hosted 
+        | version of the modscript must be referenced. To do this, press ESC, to toggle the command menu, type 
+        i install([urlToYourFile]) 
+        | where the content inside the parentheses (including the square brackets) is the full url to the file.
+        br 
+        | For example: 
+        .code
+          .orange install
+          .blue (
+          .green "https://example.com/hosted/files/mod1.js"
+          .blue )
+          .red ;
+        | Pressing enter will install the mod file. This shouldn't take very much time (if any).
+        
     .nav
       a(disabled) Previous
       a(href="/game") Play #{title}

@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  .main
+    h1 Settings
+    p 
+    .inlineCode
+    | There are some settings that can be changed to modify gameplay, such as 
+    .inlineCode autoPlayerRotation
+    | . The settings are stored in a variable named, suprise, suprise: 
+    .inlineCode settings
+    | .
+    br
+    | It has a few settings that can be changed to enhance the game.
+    br
+    br
+    table
+      thead
+        tr
+          td Setting
+          td Function
+      tbody
+        tr
+          td.inlineCode autoPlayerRotation
+          td If true, rotates player when moved, use arrow keys to rotate player, (Only works when false)
+        tr
+          td.inlineCode showMinimap
+          td If true, minimap is displayed in top-right corner
+        tr
+          td.inlineCode allowCheats
+          td If false, disallows users from accessing 
+            a(href="/docs/player-command-menu") the player Command Menu
+        tr
+          td.inlineCode maxPlayerHealth
+          td Defines the highest amount of health a player can have

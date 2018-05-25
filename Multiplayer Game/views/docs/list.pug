@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 An index of the documentation.
+  br
+  br
+  ul(style="list-style-type: none;")
+  each item in pages
+    li(style="list-style-type: none; margin-left: 20px;")
+      a(href="/docs/" + item)=item

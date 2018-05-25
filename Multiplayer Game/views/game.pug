@@ -26,6 +26,8 @@ html
     script(src="/js/notify.js")
     script(src="/js/projectile.js")
     script(src="/js/obstacle.js")
+    
+    style * {font-family: "consolas"; }
   body
 
     div(style="display: none;").notification
@@ -74,9 +76,21 @@ html
       button(onclick="ok()") ok
       button(onclick="hide()") cancel
 
-      script function hide() { document.querySelector(".prompt").style.display = "none" }
-      script function ok() { window.sessionStorage.name=document.querySelector('.prompt-value').value; hide() }
+      script function hide() { document.querySelector(".prompt").style.display = "none"; window.location.reload() }
+      script function ok() { window.sessionStorage.name=document.querySelector('.prompt-value').value; hide(); }
 
     button(onclick="startGame()").startBtn Ready!
     button(onclick="newMatch()", style="display: none;", class="startBtn").newMatch New Match!
     div(style="display: none;")#canvas
+
+    script.
+      window.addEventListener("keydown", function (e) {
+        	if (keys.indexOf(e.keyCode) == -1) {
+            /* console.log("pushing " + e.keyCode) */
+      	    keys.push(e.keyCode);
+          }
+      })
+      window.addEventListener("keyup", function (e) {
+        /* console.log("splicing " + e.keyCode) */
+        keys.splice(keys.indexOf(e.keyCode), 1)
+      })

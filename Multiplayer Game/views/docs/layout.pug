@@ -11,13 +11,16 @@ html
   body
     .wrapper
       header
-        h1 Docs
+        h1(onclick="window.location.href= '/docs'")
+          b.indent Docs
 
         nav
           a(href="/") Home
+          a(href="/docs/index") Docs Index
+          a(href="/docs/search") Search
 
-          form(action="search", method="get")
-            input(type="search", name="search", placeholder="Search the documentation")
+          form(action="/docs/search", method="get")
+            input(type="search", name="query", placeholder="Search the documentation")
             button(type="submit") Search
 
       article.content

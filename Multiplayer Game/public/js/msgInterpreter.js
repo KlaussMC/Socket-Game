@@ -16,7 +16,7 @@ msg = {
       if (presetCode[0] == '#' || presetCode[0] == '*') {
         sendMessage(`notify(\"${presetCode.slice(1)}\"\)`)
       } else if (presetCode[0] == "!" && presetCode[presetCode.length - 1] == "!") {
-        if (presetCode == "!clear!") msg.clear()
+		  if (presetCode == "!clear!") msg.clear()
       } else {
         msg.out(eval(presetCode))
       }

@@ -5,9 +5,11 @@ class player {
 
     this.pos = createVector(0, 0)
     this.vel = createVector(0, 0);
+	this.sprinting = {startTime: 0, cooldown: 10000, able: false};
     this.angle = 0;
     this.dir = 0
     this.health = settings.maxPlayerHealth
+	this.speed = this.health / 10;
 
     this.projectiles = [null]
     this.rovers = [];
@@ -49,17 +51,18 @@ class player {
     for (let i in this.rovers) { if(this.rovers[i]){this.rovers[i].show()} }
   }
   update() {
+	this.checkSprint()
     this.vel = createVector(0, 0)
 
     if (this.useControls) {
       if (keyIsDown(68)) {
         if (isColliding(this.pos.x, this.pos.y) == 0) {
-            this.vel.x = 1 * (this.health / 10);
+            this.vel.x = 1 * (this.speed);
             this.lastXDir = 2
           // dir 2
         } else {
           if (this.lastXDir != 2) {
-            this.vel.x = 1 * (this.health / 10);
+            this.vel.x = 1 * (this.speed);
             this.lastXDir = 2
           }
         }
@@ -67,12 +70,12 @@ class player {
       }
       if (keyIsDown(65)) {
         if (isColliding(this.pos.x, this.pos.y) == 0) {
-            this.vel.x = -1 * (this.health / 10);
+            this.vel.x = -1 * (this.speed);
             this.lastXDir = 1
           // dir 1
         } else {
           if (this.lastXDir != 1) {
-            this.vel.x = -1 * (this.health / 10);
+            this.vel.x = -1 * (this.speed);
             this.lastXDir = 1
           }
         }
@@ -82,12 +85,12 @@ class player {
       if (keyIsDown(87)) {
         this.dir = 1
         if (isColliding(this.pos.x, this.pos.y) == 0) {
-            this.vel.y = -1 * (this.dir * (this.health / 10));
+            this.vel.y = -1 * (this.dir * (this.speed));
             this.lastYDir = 4
           //dir 4
         } else {
           if (this.lastYDir != 4) {
-            this.vel.y = -1 * (this.dir * (this.health / 10));
+            this.vel.y = -1 * (this.dir * (this.speed));
             this.lastYDir = 4
           }
         }
@@ -96,12 +99,12 @@ class player {
       } else if (keyIsDown(83)) {
         this.dir = -1
         if (isColliding(this.pos.x, this.pos.y) == 0) {
-          this.vel.y = -1 * (this.dir * (this.health / 10));
+          this.vel.y = -1 * (this.dir * (this.speed));
           this.lastYDir = 3
           // dir 3
         } else {
           if (this.lastYDir != 3) {
-            this.vel.y = -1 * (this.dir * (this.health / 10));
+            this.vel.y = -1 * (this.dir * (this.speed));
             this.lastYDir = 3
           }
         }
@@ -220,4 +223,21 @@ class player {
       }
     }
   }
+	checkSprint() {
+		if (this.sprinting.able) {
+			if (16 in keys) {
+				this.speed = 30
+			}
+		} else {
+			this.sprinting.able = false;
+			if (this.sprinting.cooldown >= 10000) {
+				if (millis() % 10 == 0) {
+					this.sprinting.cooldown -= 10
+				}
+			} else {
+				this.sprinting.cooldown = 10000
+				this.sprinting.able = true
+			}
+		}
+	}
 }

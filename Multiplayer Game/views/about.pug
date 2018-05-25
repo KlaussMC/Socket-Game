@@ -5,57 +5,9 @@ block content
     h1 #{title}- A project by Jacob Schneider
 
     article
-      p #{title} is designed to be a 2 player game based on a project by 
-        a() Jordan Jantschulev
-        //- link jordan's game
-        |.
-      p
-        b.indent Disclaimer:
-        | This game is in its early stage of development and will therefore contain bugs that have not been adressed yet.
-        | If you wish to contribute to this project, please file an issue on
-        a(href="https://github.com/KlaussMC/Socket-Game/issues") GitHub
-        |. Thankyou for any contribution.
       br
-      h2 The Game
-      br
-      h3 Controls:
-      .indent
-        p The game's controls are very streight-forward, however, are also toggleable through the
-          a(href="/docs/player-command-menu")
-            span player-command menu
-          br
-          br
-          h4 The Default Control-Sceme:
-          .indent
-            p To use the default control sceme, the standart keys are used for movement.
-             b "w", "a", "s", "d"
-             | keys are used to move the player. When combined, they will rotate the player accordingly.
-             | For example "w" and "a" key will point the player north-east
-          br
-          h4 The Altername Control-Sceme:
-          .indent
-            p The altername control sceme (Tank-controls) will move the player the way that a car moves, the
-              b "a" and "d"
-              | keys rotate the player, while the keys
-              b "w" and "s"
-              | move the player backwards and forwards, respectively.
-          br
-          h4 Both Scemes:
-          .indent
-            p For both control scemes, the space-key will fire. Keys such as the
-              b "ctrl" key
-              | on windows, or the
-              b "CMD" key
-              | on Mac, will fire a more powerful shot, however, these can only be used once every 30 seconds.
-              br
-              | The
-              b shift
-              | key uses the sprint ability, where the player can move faster than bullets for 10 seconds.
-              | The tab key will toggle the Player-command menu, from where, a player can talk to the opponent.
-
-      // Main Level
-      br
-      h2 Questions from the task sheet:
+      h2 Questions from the 
+        a(href="res/criteria.docx") task sheet:
       .indent
         br
         ol
@@ -64,23 +16,25 @@ block content
             h4 What is your proposed project? What do you plan on making and why?
             br
             p The project is a multiplayer game, written in JavaScript.
-              | The idea was to make a game which would allow two players to battle one another.
-              | It was originally based on the idea of a game called
+              |  The idea was to make a game which would allow two players to battle one another.
+              | It was originally based on the idea of a game called 
               a(href='https://play.google.com/store/apps/details?id=com.Seabaa.Dual&hl=en') Dual
-              | where the location of the other player is unknown and makes the game more interesting.
+              |  where the location of the other player is unknown, hence makes the game more interesting.
               | However, other ideas where contributed that lead to the desicion of basing it on other titles.
             p The idea was used as it would require the use of websockets, a topic still relatively new to me.
-              | It would encourage the use of speed-aware programming, also a subject that has been more or less ignored by me.
+              |  It would encourage the use of speed-aware programming, which is also a subject that has been more or less ignored by me.
           br
           li
             h3 Criteria for success:
             h4 What will determine if you project is a success? What will make it stand out from existing projects of the same type?
             br
             p The answer to this question might seem relatively simple, and it is. By saying this,
-              | I am admitting that this type of game has already been created numerous times.
+              |  I am admitting that this type of game has already been created numerous times.
               | This is what lead to the creation and development of the documentation of it. I believe that a large number of games and programs
               | are not very well documented.
-              | The simple answer to the question is the documentation. I also plan on making an interface for connecting mod scripts.
+              | The simple answer to the question is the 
+              a(href="/docs") documentation
+              | . I also plan on making an interface for connecting mod scripts.
               | Most web-games must be rewritten in order to mod them.
           br
           li
@@ -90,19 +44,87 @@ block content
             p
               img(src="/res/idea-of-finished-game-appearance.png", alt="An image showing what the game will look like when it is to be completed").image
               sup
-                label
-                  b Note:
-                  | This image is a low-quality image and does not represent a 100% accurate depiction.
+                sup
+                  label
+                    b Note:
+                    | This image is a low-quality image and does not represent a 100% accurate depiction.
             br
             p It was originally intended that the game be based on firing blindly at the enemy player. As the development continued,
-              | changes to the original concept were implemented.
+              |  changes to the original concept were implemented.
           br
           li
             h3 Timeline
             h4 Describe and illustrate how you intend to spend your time for the duration of this project. What milestones need to be met and when?
             br
             p Throughout the project's development, I plan to continue improving the functionality of the game, as well as the support for
-              | lower-quality browsers and mobile devices.
-
+              |  lower-quality browsers and mobile devices.
+              br
+              |  The code for the game is poorly written and is very prone to issues. This is one area that will recieve a lot of attention.
+          br
+          li
+            h3 Research and evaluation
+            h4 Find examples of existing projects and evaluate them. Decide what features you would like to incorporate into YOUR product.
+            br
+            p The project has two sources of inspiration, Dual and Tanks.io. 
+              | Dual features an invisible opponent where the aim of the game is to shoot the opponenet without knowing their exact location. 
+              br
+              | Tanks.io features players moving around the screen with obstacles, mines and turrets, as well as a minimap and a map. 
+              | The project was not finished on time, and if possible, more content would have been added.
+          br
+          li
+            h3 Selection and justification of hardware and software
+            h4 What hardware and software will you use to complete your project? Why did you choose them?
+            br
+            p The only hardware that I will be using is my laptop, phone and headphones - Music is essential, after all!! 
+              | The software I am using is:
+              br
+              br
+              ul.showBullets
+                li Atom.io
+                li Chrome Canary
+                li Mozilla Firefox
+                li Git Bash
+                li Node.js
+                li Nodemon
+                li Windows CMD
+                li Windows education
+              br
+              sup For a list of full software and libraries used in this project, see footer.
+              br
+              | I use Atom for most of my projects because it is a very powerful and capable editor, it boasts high customisability with the help of third-party packages and themes. 
+              | Chrome Canary is my primary browser as its Developer Tools features a simple-to-use and fast layout as well as very helpful Node.js debugging tools.
+              | The project is built atop of the Express.js framework. I use it because I am farmilliar with it, it is simplistic and fast.
+          br
+          li
+            h3 WHS Procedures
+            h4 What Workplace Health and Safety procedures do you need to be aware of in the development of your product? How will you minimize them?
+            br
+            p The ideal workspace features adjustable, non-reflective monitors, seats, desks and hand rests. It is also proven that customising the workspace is beneficial to work-efficiency! 
+              br
+              | A chair that fits the curvature of the spine is a very important aspect of comfort as the additional support reduces the workload on the spine. 
+              | A comfortable workspace allows for increased efficiency, therefore, if everything is adjustable to the user's body preportions, it reduces muscle activity during the work period and increases efficiency.
+          br
+          li
+            h3 Project development
+            h4 Outline the steps you took in the development of you project. Include screenshots and step by step instructions detailed enough that anyone reading them would be able to reproduce your product.
+            br
+            p The first step is to design the game - every corner of everything. For example, I considered how many rovers a player can have at maximum.
+              br
+              br
+              b Step 1: 
+              | Structure the project. Every program requires a folder structure. I like to keep my structure simple, by placing all the code for the client-side in one place and organising the rest of the files based on what they are for.
+              a(href="/res/Folder structure.png", target="_blank")
+                img(src="/res/Folder structure.png", alt="Screenshot of my Folder-layout in Atom", style="width: 50%; margin: 5px;")
+          br
+          li
+            h3 Final evaluation
+            h4 Evaluate your finished product, how could it be improved? What would you do differently if you had to make it again? Get someone else to evaluate it.
+            br
+            p I find the project a success, I would not attempt to recreate it as it was a huge pain.
+              br
+              br
+              b Sophie Paskin's advice: 
+              | I liked a lot of the things you have done, but you did say that due to time, there were things you were never able to add. I think it would be wise in the future to add these. As far as the links go, they all work and the aesthetics are impressive. "I proud of you!"
+      br
       button(onclick="window.location.href='/game'").gotoGame Continue to #{title}
       //- Button Looks disabled

@@ -26,18 +26,6 @@ function keyDown() {
   return keys.length == 0 ? false : true;
 }
 
-window.addEventListener("keydown", function (e) {
-  if (keys.length != 0)
-    keys.push(e.keyCode);
-})
-window.addEventListener("keyup", function (e) {
-  let key = e.keyCode;
-  for (let i = keys.length; i > 0; i--) {
-    if (keys[i] == key)
-      keys.splice(i, 1)
-  }
-})
-
 function registerP2() {
   try {
     socket.emit("p2", window.sessionStorage.name)
@@ -55,7 +43,7 @@ function startGame() {
   registerP2()
   socket.emit("testMessage", "connect")
   socket.emit("p1base", {owner: p1base.owner, side: p1base.side})
-  p1.money = window.sessionStorage.money;
+  p1.money = window.sessionStorage.money || 0;
   gameOver=false;
   win=false;
 }
@@ -65,16 +53,13 @@ function reset() {
   p1.pos.y = 0;
   p1.projectiles = []
   p1.rovers = [] // todo: load rovers from sessionStorage
+  // registerP2()
+
 }
 function newMatch() {
-  p2 = undefined;
-  registerP2()
+  // p2 = undefined;
+  startGame()
   reset()
-  socket.emit("testMessage", "connect")
-  socket.emit("p1base", {owner: p1base.owner, side: p1base.side})
-  p1.money = window.sessionStorage.money;
-  gameOver=false;
-  win=false;
 }
 function showP1Stats() {
   document.querySelector("#health").innerHTML = p1.health + "<img src='/res/heart.png'>";
@@ -86,7 +71,7 @@ function Prompt(str) {
   document.querySelector(".prompt-header").innerHTML = str
 }
 window.addEventListener("keydown", e => {
-  if (e.keyCode == 9) {
+  if (e.keyCode == 27) {
     e.preventDefault();
     msg.open()
   }
@@ -144,6 +129,7 @@ function isColliding() {
   return 0
 }
 function endGame(victory) {
+  p2 = undefined;
   document.querySelector(".newMatch").style.display = "block";
   if (victory)
     window.sessionStorage.money = p1.money;

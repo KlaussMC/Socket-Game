@@ -1,0 +1,24 @@
+.imageViewer {
+  width: 80%;
+  position: relative;
+  left: 10%;
+}
+.imageViewer img {
+  width: 100%;
+}
+.imageViewer nav {
+  width: 100%;
+  text-align: center;
+}
+.imageViewer nav > * {
+  width: 25%;
+  margin: 15px 12.5% 15px 12.5%;
+  text-align: center;
+  border: none;
+  background: cornflowerblue;
+  color: #eee;
+  border-radius: 15px;
+  transition: 0.25s ease;
+}
+.imageViewer nav > *:hover {cursor: pointer;}
+.imageViewer nav > *:active {background: deepskyblue;}

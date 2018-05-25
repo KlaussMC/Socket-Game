@@ -1,4 +1,18 @@
 extends layout
 
 block content
-	h1(style="color: #eee;")=items
+	if results[0] != "No Results Found"
+		ul
+			each item in results
+				li
+					a(href="/docs/" + item)=item
+				br
+	else
+		
+		h1 Search the docs!
+		br
+		br
+		
+		form(action="/docs/search", method="get").search
+			input(type="search", name="query", placeholder="Search the documentation")
+			button(type="submit") Search

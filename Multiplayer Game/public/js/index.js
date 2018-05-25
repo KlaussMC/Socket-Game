@@ -85,10 +85,16 @@ function draw() {
       }
     } else {
       background(0, 50);
-      stroke(255);
-      strokeWeight(5)
-      textSize(35)
-      text("Waiting for players to connect", 0 - (("Waiting for players.".length / 2) * 17.5), 0);
+      // stroke(255);
+      // strokeWeight(5)
+      // textSize(35)
+	  textSize(35);
+	  noStroke()
+	  fill(255);
+	  textFont("consolas")
+	  // textMode(CENTER, CENTER);
+	  textAlign(CENTER, CENTER);
+      text("Waiting for players to connect", 0, 0);// - (("Waiting for players.".length / 2) * 17.5)
     }
   } else {
     if (won === true) {
@@ -99,6 +105,7 @@ function draw() {
     stroke(255);
     strokeWeight(5)
   }
+  // if (16 in keys) p1.sprint();
 }
 function windowResized() {
   resizeCanvas(minWidth, minHeight)

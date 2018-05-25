@@ -2,7 +2,7 @@ extends layout
 
 block content
 	style.
-		.msg {
+		.msg * {
 			padding: 8px;
 			background: #f4f4f4;
 			font-family: monospace;
@@ -10,6 +10,7 @@ block content
 			user-select: select !important;
 			color: #333 !important;
 		}
+		
 	section.msg
 		h1= message
 		br

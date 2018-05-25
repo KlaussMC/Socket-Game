@@ -4,7 +4,7 @@
 
 socket.on("p2", name => {
   p2 = new player(name, false)
-  console.log("Player 2 connected")
+  // console.log("Player 2 connected")
 })
 
 socket.on("update", data => {
@@ -45,13 +45,13 @@ socket.on("win", () => {
   gameOver = true
   won = true;
   endGame(won)
-  console.log("Win")
+  // console.log("Win")
 })
 socket.on("loss", () => {
   gameOver = true
   won = false
   endGame(won)
-  console.log("Loss")
+  // console.log("Loss")
 })
 
 socket.on("captureSync", progress => {
